@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  mongodb:
+    build:
+      context: ./mongodb
+    container_name: mongodb-container
+    networks:
+      - app-network
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-container
+    networks:
+      - app-network
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-container
+    networks:
+      - app-network
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    driver: bridge
