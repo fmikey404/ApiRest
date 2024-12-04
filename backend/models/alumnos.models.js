@@ -1,9 +1,12 @@
-// models/Alumno.js
+const mongoose = require('mongoose');
 
-const mongoose = require("mongoose");
-
-// Define el esquema para la colección 'alumnos'
+// Definir el esquema para los alumnos
 const alumnoSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true, // El ID es obligatorio
+    unique: true,   // El ID debe ser único
+  },
   nombre: {
     type: String,
     required: true, // El nombre es obligatorio
@@ -12,9 +15,11 @@ const alumnoSchema = new mongoose.Schema({
     type: Number,
     required: true, // La edad es obligatoria
   },
+}, {
+  timestamps: true,  // Agrega las propiedades 'createdAt' y 'updatedAt'
 });
 
-// Crea el modelo a partir del esquema
-const Alumno = mongoose.model("Alumno", alumnoSchema);
+// Crear un modelo para 'alumnos' con el esquema definido
+const Alumno = mongoose.model('Alumno', alumnoSchema);
 
-module.exports = Alumno; // Exporta el modelo para usarlo en otras partes de la aplicación
+module.exports = Alumno;
